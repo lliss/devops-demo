@@ -7,9 +7,6 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
-#  config.vm.network "forwarded_port", host: 8080, guest: 80
-#  config.vm.network "private_network", ip: "172.16.0.4"
-
   config.vm.provider "virtualbox" do |v|
     v.memory = 512
   end
@@ -33,9 +30,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server.vm.network "private_network", ip: "172.16.0.4"
   end
 
-  config.vm.define :database do |database|
-    database.vm.hostname = "database.local"
-    database.vm.network "private_network", ip: "172.16.0.6"
-  end
+  # config.vm.define :database do |database|
+  #   database.vm.hostname = "database.local"
+  #   database.vm.network "private_network", ip: "172.16.0.6"
+  # end
 
 end
