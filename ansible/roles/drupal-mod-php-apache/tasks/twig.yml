@@ -1,0 +1,39 @@
+---
+- name: Get Twig From github
+  git: repo=git://github.com/twigphp/Twig.git
+  args:
+    dest: /src/twig
+    version: v1.24.0
+
+- name: Phpize Twig C extension
+  command: /usr/bin/phpize chdir=/src/twig/ext/twig/
+  args:
+    creates: /usr/lib/php5/20121212/twig.so
+
+- name: Configure Twig C extension
+  command: ./configure chdir=/src/twig/ext/twig/
+  args:
+    creates: /usr/lib/php5/20121212/twig.so
+
+- name: Make Twig C extension
+  command: /usr/bin/make chdir=/src/twig/ext/twig/
+  args:
+    creates: /usr/lib/php5/20121212/twig.so
+
+- name: Configure Twig C extension
+  command: /usr/bin/make install chdir=/src/twig/ext/twig/
+  args:
+    creates: /usr/lib/php5/20121212/twig.so
+
+- name: Add twig ini
+  ini_file: dest=/etc/php5/mods-available/twig.ini
+  args:
+    section: default
+    option: extension
+    value: twig.so
+    mode: 0644
+
+- name: Enable twig ini
+  command: /usr/sbin/php5enmod twig
+  args:
+    creates: /etc/php5/apache2/conf.d/20-twig.ini

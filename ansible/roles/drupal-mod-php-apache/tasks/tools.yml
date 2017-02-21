@@ -1,0 +1,15 @@
+---
+- name: Install Drush
+  get_url: url=http://files.drush.org/drush.phar dest=/usr/local/bin/drush mode=0755
+
+- name: Install Drupal Console
+  get_url: url=https://drupalconsole.com/installer dest=/usr/local/bin/drupal mode=0755
+
+- name: Install Composer
+  get_url: url=https://getcomposer.org/download/1.0.0-beta1/composer.phar
+  args:
+    dest: /usr/local/bin/composer.phar
+    mode: 0755
+
+- name: Add Drupal Perms script
+  copy: src=drupal-perms dest=/usr/local/bin/drupal-perms mode=0755

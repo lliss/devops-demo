@@ -1,0 +1,4 @@
+---
+- name: Set custom firewall rules
+  ufw: rule={{ item.rule }} port={{ item.port }} src={{ item.src }} proto={{ item.proto }}
+  with_items: "{{ custom_firewall_rules }}"

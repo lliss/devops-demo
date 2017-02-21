@@ -1,0 +1,23 @@
+---
+- name: Install Apache2
+  apt: name=apache2 state=present
+
+- name: Ensure Apache is started
+  apt: name=apache2 state=installed
+
+- name: Set apache to start automatcially
+  service: name=apache2 enabled=yes state=started
+
+- name: Enable Apache  rewrite
+  apache2_module: state=present name={{ item }}
+  with_items:
+    - alias
+    - deflate
+    - dir
+    - expires
+    - headers
+    - mime
+    - rewrite
+    - autoindex
+    - negotiation
+    - setenvif

@@ -1,0 +1,26 @@
+---
+- name: Update apt
+  apt: update_cache=yes
+
+- name: Necessities
+  apt: name={{ item }} state=present
+  with_items:
+    - 'vim'
+    - 'git'
+    - 'wget'
+    - 'byobu'
+    - 'curl'
+    - 'zip'
+
+- name: Add necessary files
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: bashrc, dest: /etc/bash.bashrc }
+    - { src: inputrc, dest: /etc/inputrc }
+    - { src: vimrc, dest: /etc/vimrc }
+    - { src: gitconfig, dest: /etc/gitconfig }
+
+
+- include: ntp.yml
+- include: firewall.yml
+- include: ssh-config.yml

@@ -1,0 +1,6 @@
+---
+custom_firewall_rules:
+  - port: 3306
+    src: '172.16.0.4/32'
+    proto: tcp
+    rule: allow

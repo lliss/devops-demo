@@ -1,0 +1,24 @@
+---
+- hosts: servers
+  become: yes
+  become_method: sudo
+
+  roles:
+    - { role: core }
+    - { role: drupal-mod-php-apache }
+    - { role: mysql }
+
+  tasks:
+    - include: "hosts/{{ ansible_hostname }}.tasks.yml"
+
+# - hosts: databases
+#   become: yes
+#   become_method: sudo
+
+#   vars_files:
+#     - "hosts/{{ ansible_hostname }}.vars.yml"
+
+#   roles:
+#     - { role: core }
+#     - { role: mysql }
+#     - { role: custom-firewall}
