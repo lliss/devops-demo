@@ -28,11 +28,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :server do |server|
     server.vm.hostname = "server.local"
     server.vm.network "private_network", ip: "172.16.0.4"
+    config.vm.synced_folder "application/", "/var/www/application"
   end
 
-  # config.vm.define :database do |database|
-  #   database.vm.hostname = "database.local"
-  #   database.vm.network "private_network", ip: "172.16.0.6"
-  # end
+  config.vm.define :database do |database|
+    database.vm.hostname = "database.local"
+    database.vm.network "private_network", ip: "172.16.0.6"
+  end
 
 end

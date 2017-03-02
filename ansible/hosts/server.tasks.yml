@@ -1,3 +1,11 @@
 ---
 - name: Install MySql Client
   apt: name=mysql-client-core-5.5 state=present
+
+- name: Update default vhost
+  lineinfile: dest=/etc/apache2/sites-available/000-default.conf
+  args:
+    regexp: '^\s*DocumentRoot'
+    line: 'DocumentRoot /var/www/application'
+    state: present
+  notify: Restart Apache

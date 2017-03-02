@@ -1,0 +1,26 @@
+---
+- name: Copy database dump file
+  copy:
+    src: ../../application/application.sql
+    dest: /tmp
+
+- name: Restore database
+  mysql_db:
+    name: application
+    state: import
+    target: /tmp/application.sql
+
+- mysql_user:
+    name: username
+    password: password
+    host: '172.16.0.4'
+    priv: 'application.*:SELECT'
+    state: present
+
+- name: Bind mysql to listen to all ips
+  lineinfile: dest=/etc/mysql/my.cnf
+  args:
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    state: present
+  notify: Restart MySQL
